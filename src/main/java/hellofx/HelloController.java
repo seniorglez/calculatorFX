@@ -27,7 +27,11 @@
 package hellofx;
 
 import hellofx.calculator.CalculatorMachine;
+import hellofx.calculator.CalculatorTask;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -48,6 +52,7 @@ public class HelloController {
 
     private String expression = "";
     private final String OPERATION_SIMBOLS = "/*+^-";
+    private CalculatorTask calculatorTask;
 
     public void initialize() {
         label.setText(expression);
@@ -63,7 +68,8 @@ public class HelloController {
             case "DEL":
                 break;
             case "=":
-                expression = CalculatorMachine.calculate(expression) + "";
+                //expression = CalculatorMachine.calculate(expression) + "";
+                calculate();
                 break;
             case "+":
             case "*":
@@ -80,6 +86,19 @@ public class HelloController {
                 expression+=txt;
         }
         label.setText(expression);
+    }
+
+    private void calculate() {
+        calculatorTask = new CalculatorTask();
+        calculatorTask.setMath_Expression(expression);
+        calculatorTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent workerStateEvent) {
+                expression = calculatorTask.getMessage();
+                label.setText(expression);
+            }
+        });
+        new Thread(calculatorTask).start();
     }
 
     private void addOperation(String operation) {

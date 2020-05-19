@@ -3,7 +3,6 @@ package hellofx.calculator;
 import javafx.concurrent.Task;
 
 public class CalculatorTask extends Task<String> {
-
     private ExpressionParser expressionParser;
     private String math_Expression;
 

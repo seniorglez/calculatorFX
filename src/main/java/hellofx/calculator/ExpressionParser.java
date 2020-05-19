@@ -1,7 +1,6 @@
 package hellofx.calculator;
 
 public class ExpressionParser {
-
     public ExpressionParser(String expression){
         this.str=expression;
     }

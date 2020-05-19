@@ -14,7 +14,6 @@ public class HelloFXML extends Application {
     private Stage primaryStage;
     private AnchorPane root;
 
-
     @Override
     public void start(Stage stage) throws IOException {
         this.primaryStage = stage;

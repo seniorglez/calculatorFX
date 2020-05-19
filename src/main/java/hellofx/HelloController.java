@@ -26,9 +26,7 @@
  */
 package hellofx;
 
-import hellofx.calculator.CalculatorMachine;
 import hellofx.calculator.CalculatorTask;
-import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -39,8 +37,6 @@ import javafx.scene.control.Label;
 import java.util.ResourceBundle;
 
 public class HelloController {
-
-
     @FXML
     private Button button;
 
@@ -55,7 +51,7 @@ public class HelloController {
     private CalculatorTask calculatorTask;
 
     public void initialize() {
-        label.setText(expression);
+        label.setText(resources.getString("label.text"));
     }
 
     @FXML

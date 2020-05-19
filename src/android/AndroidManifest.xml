@@ -5,6 +5,7 @@
     <uses-permission a:name="android.permission.INTERNET"/>
     <uses-permission a:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission a:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <application a:label='calculatorFX' a:icon="@mipmap/ic_launcher">
         <activity a:name='com.gluonhq.helloandroid.MainActivity' a:configChanges="orientation|keyboardHidden">
              <intent-filter>

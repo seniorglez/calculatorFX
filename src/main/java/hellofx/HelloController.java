@@ -1,5 +1,7 @@
 package hellofx;
 
+import com.gluonhq.attach.vibration.VibrationService;
+import com.gluonhq.charm.down.Services;
 import hellofx.calculator.CalculatorTask;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
@@ -7,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
 
 import java.util.ResourceBundle;
 
@@ -31,6 +34,10 @@ public class HelloController {
     @FXML
     private void handleButtonAction(ActionEvent event)
     {
+        Services.get(VibrationService.class).ifPresent(service -> {
+            service.vibrate();
+        });
+
         Button btn = (Button) event.getSource();
         String txt = btn.getText();
         System.out.println( txt+ " pressed");

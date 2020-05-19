@@ -29,6 +29,16 @@
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>vibration</artifactId>
+            <version>4.0.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gluonhq</groupId>
+            <artifactId>charm-down-core</artifactId>
+            <version>3.8.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -67,11 +77,14 @@
                         <list>javafx.scene.control.Button</list>
                         <list>javafx.scene.control.Label</list>
                         <list>javafx.scene.layout.GridPane</list>
+                        <list>com.gluonhq.charm.down.Services</list>
                     </reflectionList>
+                    <attachList>
+                        <list>vibration</list>
+                    </attachList>
                     <mainClass>${mainClassName}</mainClass>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
     

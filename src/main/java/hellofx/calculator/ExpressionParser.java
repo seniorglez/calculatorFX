@@ -53,7 +53,6 @@ public class ExpressionParser {
         return x;
     }
 
-
     private double parseExpression() {
         double x = parseTerm();
         for (;;) {
@@ -62,7 +61,6 @@ public class ExpressionParser {
             else return x;
         }
     }
-
 
     private double parseTerm() {
         double x = parseFactor();
@@ -104,9 +102,7 @@ public class ExpressionParser {
         } else {
             throw new RuntimeException("Unexpected: " + (char)ch);
         }
-
         if (eat('^')) x = Math.pow(x, parseFactor()); // exponentiation
-
         return x;
     }
 }

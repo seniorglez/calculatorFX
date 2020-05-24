@@ -17,14 +17,14 @@ public class CalculatorMachine {
         p.put("[÷]","/");
         return expressionNormalizer(s,p);
     }
-    protected static String expressionNormalizer(String expression, Map <String,String> p){
+    protected static String expressionNormalizer(String expression, Map <String,String> p) {
         AtomicReference<String> result = new AtomicReference<>();
         result.set(expression);
         p.forEach((R,S)->result.set(normalizeChar(R,S,result.get())));
         return  result.get();
     }
 
-    protected  static String normalizeChar(String regex, String subst, String expression){
+    protected  static String normalizeChar(String regex, String subst, String expression) {
         Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(expression);
         return matcher.replaceAll(subst);

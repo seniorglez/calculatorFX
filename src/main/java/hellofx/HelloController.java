@@ -11,8 +11,6 @@ import javafx.scene.control.Label;
 import java.util.ResourceBundle;
 
 public class HelloController {
-    @FXML
-    private Button button;
 
     @FXML
     private Label label;
@@ -23,7 +21,6 @@ public class HelloController {
     private String expression = "";
     private final String OPERATION_SIMBOLS = "/*+^-";
     private CalculatorService calculatorService;
-
 
     public void initialize() {
         calculatorService = new CalculatorService();

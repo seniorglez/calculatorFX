@@ -24,7 +24,6 @@ public class HelloController {
 
     public void initialize() {
         calculatorService = new CalculatorService();
-        calculatorService.start();
         calculatorService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent workerStateEvent) {

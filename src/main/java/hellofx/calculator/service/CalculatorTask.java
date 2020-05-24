@@ -1,5 +1,6 @@
-package hellofx.calculator;
+package hellofx.calculator.service;
 
+import hellofx.calculator.ExpressionParser;
 import javafx.concurrent.Task;
 
 public class CalculatorTask extends Task<String> {
@@ -8,7 +9,6 @@ public class CalculatorTask extends Task<String> {
 
     @Override
     protected String call() throws Exception {
-        System.out.println("CalculatorTask Started");
         expressionParser = new ExpressionParser(math_Expression);
         double result = expressionParser.parse();
         updateMessage(result + "");

@@ -1,6 +1,6 @@
 package hellofx;
 
-import hellofx.calculator.CalculatorTask;
+import hellofx.calculator.service.CalculatorService;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,9 +22,20 @@ public class HelloController {
 
     private String expression = "";
     private final String OPERATION_SIMBOLS = "/*+^-";
-    private CalculatorTask calculatorTask;
+    private CalculatorService calculatorService;
+
 
     public void initialize() {
+        calculatorService = new CalculatorService();
+        calculatorService.start();
+        calculatorService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent workerStateEvent) {
+                String result = (String) workerStateEvent.getSource().getValue();
+                expression = result;
+                label.setText(result);
+            }
+        });
         label.setText(resources.getString("label.text"));
     }
 
@@ -36,9 +47,10 @@ public class HelloController {
         System.out.println( txt+ " pressed");
         switch (txt) {
             case "DEL":
+                expression = removeLastChar(expression);
+                label.setText(expression);
                 break;
             case "=":
-                //expression = CalculatorMachine.calculate(expression) + "";
                 calculate();
                 break;
             case "+":
@@ -47,6 +59,7 @@ public class HelloController {
             case "/":
             case "^":
                 addOperation(txt);
+                label.setText(expression);
                 break;
             case "%":
             case "√":
@@ -54,25 +67,25 @@ public class HelloController {
                 break;
             default:
                 expression+=txt;
+                label.setText(expression);
         }
-        label.setText(expression);
     }
 
     private void calculate() {
-        calculatorTask = new CalculatorTask();
-        calculatorTask.setMath_Expression(expression);
-        calculatorTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent workerStateEvent) {
-                expression = calculatorTask.getMessage();
-                label.setText(expression);
-            }
-        });
-        new Thread(calculatorTask).start();
+        calculatorService.setMath_expression(expression);
+        if ((calculatorService.stateProperty().getValue().equals("SCHEDULED"))) {
+            calculatorService.start();
+        } else {
+            calculatorService.restart();
+        }
     }
 
     private void addOperation(String operation) {
         if(!endWithOperator() && !expression.isEmpty()) expression += operation;
+    }
+
+    private static String removeLastChar(String expression) {
+        return expression.substring(0, expression.length() - 1);
     }
 
     private boolean endWithOperator() {
